@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!-- saved from url=(0074)https://classes.cs.uoregon.edu/16F/cis210/assignments/W5-SetMembership.php -->
+<html class="gr__classes_cs_uoregon_edu"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- This is for the <head> section of CIS210 pages,
+     not for the page header in the <body> section. 
+   Include here metadata including css links, etc., 
+   but omit the <title> element which may be specific
+   to each page. 
+   Set $root before calling this.
+-->
+
+
+<meta name="description" content="CIS 210, Computer Science 1">
+<meta name="keywords" content="Computer science, CS1"> 
+<meta name="author" content="Michal Young"> 
+
+   <link rel="stylesheet" type="text/css" href="./Recursive Set Membership_files/cis210.css" media="screen">
+   <link rel="stylesheet" type="text/css" href="./Recursive Set Membership_files/cis210-print.css" media="print">
+
+<title>Recursive Set Membership</title></head>
+
+<body data-gr-c-s-loaded="true">
+<div class="container">
+
+  <!-- pagehead.php: Page header to include on each page -->
+
+<div class="pageheader">
+   <div class="title">
+   <h1>CIS 210, Fall 2016<br> Introduction to Computer Science</h1>
+   </div> <!-- title -->
+   </div> <!-- pageheader -->
+<!-- end pagehead.php -->
+  <!-- sidebar.php:  Sidebar to be replicated on each page 
+     Note links must be relative to site URL-->
+<div class="sidenav">
+   <h1>Main Menu</h1>
+   <ul>
+   <li><a href="https://classes.cs.uoregon.edu/16F/cis210/index.php">Class home page</a></li>
+   <li><a href="https://piazza.com/uoregon/fall2016/cis210/home">Piazza</a></li>
+   <li><a href="https://classes.cs.uoregon.edu/16F/cis210/hints.php">How to Succeed</a></li>
+   <li><a href="https://classes.cs.uoregon.edu/16F/cis210/schedule.php">Schedule</a></li>
+   <li><a href="https://classes.cs.uoregon.edu/16F/cis210/assignments.php">Assignments</a></li>
+   <li><a href="https://classes.cs.uoregon.edu/16F/cis210/references.php">References</a></li>
+  <li><a href="https://classes.cs.uoregon.edu/16F/cis210/exams.php">Exams</a></li>
+<!--
+  <li><a href="/16F/cis210/assignments/Contest.php" >Contest</a></li>
+-->
+   </ul>
+</div>
+
+<div class="content">
+
+<div class="item">
+  <h1>Project 5, Part 2</h1>
+<p>This assignment is due Friday, October 28 at 5pm. Save your Python program
+  in a file called is_member.py and turn that file in using Canvas.</p>
+<h1>Purpose</h1>
+  <p>In this project you will need to design and implement a recursive
+     algorithm for determining set inclusion.  It
+     is not a long or complicated project, but it requires careful design.
+</p>
+  <h1>Pair Assignment</h1>
+  <p>
+    Your are encouraged to use <em>pair programming</em> to complete this
+    assignment.  Work together with one classmate.  The amount of actual
+    programming required for this project is small, but be sure you
+    understand how the main program logic works, including the recursive
+    function.
+  </p>
+</div>
+
+<div class="item">
+<h1>Sets</h1>
+  <p>
+    A set is a well-defined collection of <em>distinct</em> objects
+    (there are no duplicates).
+    The objects that make up a set (also known as the elements
+    or members of a set) can be anything: numbers, people,
+    letters of the alphabet, other sets, and so on.
+  </p>
+<h2>Membership</h2>
+  <p>
+    If B is a set and x is one of the objects of B, this is denoted x
+    ∈ B, and is read as "x is an element of B".
+  </p>
+<h2>Set representation</h2>
+  <p>
+    For this assignment, we will represent a set of integers as a sorted list
+    of the unique integers.
+    This is different from Python's built-in set construct, in which the
+    elements are unordered.
+    By using a sorted list, you will be able to determine whether a value
+    is a member of a given set by using a recursive algorithm.
+  </p>
+</div>
+<div class="item">
+<h1>Binary search</h1>
+  <p>
+    In computer science, a binary search algorithm finds the position
+    of a target value within a sorted array.
+    The binary search algorithm begins by comparing the target value
+    to the value of the middle element of the sorted array.
+    If the target value is equal to the middle element's value,
+    then the position is returned and the search is finished.
+    If the target value is less than the middle element's value,
+    then the search continues on the lower half of the array;
+    or if the target value is greater than the middle element's value,
+    then the search continues on the upper half of the array.
+    This process continues, eliminating half of the elements,
+    and comparing the target value to the value of the middle element
+    of the remaining elements - until the target value is either found
+    (and its associated element position is returned), or until the
+    entire array has been searched (and "not found" is returned).
+  </p>
+<h2>Example</h2>
+<kbd><pre>Sorted array: l = [1, 3, 4, 6, 8, 9, 11]
+Target value: x = 4
+Compare x to 6; x is smaller, so repeat with [1, 3, 4]
+Compare x to 3; x is larger, so repeat with [4]
+Compare x to 4; x == 4, so the position is returned
+</pre></kbd>
+</div>
+<div class="item">
+  <h1>Requirements</h1>
+  <p>
+    Your program will read a file containing a list of integers, 
+    which may be in any order; you are guaranteed that there are no
+    duplicate values in the file.
+    Each integer appears on a line by itself, and every line in the file
+    contains an integer (there are no blank lines).
+    Your program will create a list of integers from those contained in the
+    file, and will have to sort them to convert the list into our representation
+    of a set.
+  </p>
+  <p>
+    Besides reading the set of integers from the file, you must also implement
+    the is_member() function, which given a set represented as a sorted list,
+    and a candidate number, returns True if that number is an element of the
+    the set, and False otherwise.
+    Your implementation must recursively implement the binary search algorithm
+    described above, with the exception that we do not need to know the index
+    for the matched element in the list, we simply need to know True or False.
+    When your is_member() function recursively invokes itself, the list it
+    passes on the recursive call should be a slice of the original list.
+  </p>
+  <p>
+    Your program will be invoked from the command line as follows:<br>
+    <code>
+    $ python3 is_member.py elements.txt number
+    </code>
+  </p>
+</div>
+<div class="item">
+  <h1>Getting started</h1>
+  <p>This <a href="https://classes.cs.uoregon.edu/16F/cis210/assignments/base/is_member.py">starter code</a> 
+    may be helpful.
+    You will need to create an elements.txt file containing integers
+    that make up a set against which you test your implementation.
+    You will also need to access the test_harness.py found <a href="https://classes.cs.uoregon.edu/16F/cis210/assignments/base/test_harness.py">here</a>.
+    </p>
+    </div>
+<div class="item">
+<h1>Grading</h1>
+<p>40 points possible</p>
+  <ul>
+    <li>20: Program runs, correctly implements is_member() using a recursive
+        implementation.
+    5 points if it runs, but incorrectly implements is_member().
+    0 points if it does not run.
+    </li>
+    <li>10: Follows <a href="https://classes.cs.uoregon.edu/16F/cis210/handouts/styleguide.php">CIS 210 coding guidelines</a>, including author
+    identification and header .</li>
+    <li>10: Clarity.  The program should not only be consistent with
+    the requirements and approach described here, but it should be
+    very easy to read the program and verify its consistency with the
+    spec. </li>
+   </ul>
+</div>
+
+
+
+</div> <!-- class content -->
+
+<!-- pagefoot.php: Page footing to include on each page -->
+<div class="clearer">  </div>
+   <div class="footer">
+
+   <span style="float: left">
+   Contact <a href="mailto:jsventek@uoregon.edu?subject=CIS%20210%20web%20site">webmaster</a>.
+   </span>
+   <span style="float: right">  Based loosely on Transparentia design by Arcsin, from OSWD.org. </span>
+      &nbsp; <!-- Space to put the two floats above.  Setting text justification does not seem to do it. -->
+   </div>
+<!-- Track our traffic ?? -->
+<!-- End pagefoot.php -->
+
+</div> <!-- class container -->
+
+
+
+
+</body><span class="gr__tooltip"><span class="gr__tooltip-content"></span><i class="gr__tooltip-logo"></i><span class="gr__triangle"></span></span></html>
